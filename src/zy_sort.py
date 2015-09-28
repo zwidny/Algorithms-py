@@ -1,28 +1,6 @@
 # -*- coding: utf-8 -*-
 
 
-class ListStack:
-    """LIFO Stack implementation using list
-    """
-
-    def __init__(self):
-        self.data_repo = []
-
-    def __len__(self):
-        return len(self.data_repo)
-
-    def is_empty(self):
-        return len(self.data_repo) == 0
-
-    def push(self, element):
-        self.data_repo.append(element)
-
-    def pop(self):
-        if self.is_empty():
-            raise Exception('Stack is empty')
-        return self.data_repo.pop()
-
-
 def quick_sort(s):
     """Quick sort.
     Args:
@@ -41,3 +19,38 @@ def quick_sort(s):
     pl = quick_sort(pl)
     pg = quick_sort(pg)
     return pl + [p] + pg
+
+
+def merge(s):
+    '''sorted s based on merging algorithm
+
+    Args:
+      s - a list or tuple that supports len function and slice
+
+    Return:
+
+    '''
+    def merge_func(s1, s2):
+        s_l = len(s1) + len(s2)
+        i = j = 0
+        s_n = [0] * s_l
+        while i + j < s_l:
+            if i < len(s1) and j < len(s2):
+                if s1[i] < s2[j]:
+                    s_n[i+j] = s1[i]
+                    i += 1
+                else:
+                    s_n[i+j] = s2[j]
+                    j += 1
+            elif not i < len(s1):
+                s_n[i+j] = s2[j]
+                j += 1
+            elif not j < len(s2):
+                s_n[i+j] = s1[i]
+                i += 1
+        return s_n
+
+    if len(s) < 2:
+        return s
+    mid = len(s) // 2
+    return merge_func(s[:mid], s[mid:])
